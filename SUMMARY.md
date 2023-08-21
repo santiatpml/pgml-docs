@@ -2,7 +2,11 @@
 
 * [Home](README.md)
 * [Overview](overview.md)
-* [Getting Started](getting-started.md)
+* [Getting Started](getting-started/README.md)
+  * [Sign up](getting-started/sign-up.md)
+  * [Select a plan](getting-started/select-a-plan.md)
+  * [Database Credentials](getting-started/database-credentials.md)
+  * [Connect to the Database](getting-started/connect-to-the-database.md)
 * [Use cases](use-cases/README.md)
   * [Chatbots](use-cases/chatbots.md)
   * [Recommendation Engine](use-cases/recommendation-engine.md)
