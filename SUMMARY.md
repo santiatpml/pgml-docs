@@ -2,7 +2,7 @@
 
 * [Home](README.md)
 * [Overview](overview.md)
-* [Getting Started](getting-started/README.md)
+* [Getting Started](getting-started.md)
   * [Sign up](getting-started/sign-up.md)
   * [Select a plan](getting-started/select-a-plan.md)
   * [Database Credentials](getting-started/database-credentials.md)
