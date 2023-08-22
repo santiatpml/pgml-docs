@@ -8,24 +8,48 @@ Models are used for embedding chuncked documents. We support most every open sou
 
 ### **Create a default Model "intfloat/e5-small" with default parameters: {}**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 model = Model()
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ### **Create a Model with custom parameters**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 model = Model(
     name="hkunlp/instructor-base",
     parameters={"instruction": "Represent the Wikipedia document for retrieval: "}    
 )
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ### **Use an OpenAI model**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 model = Model(name="text-embedding-ada-002", source="openai")
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ## Splitters
 
@@ -33,18 +57,34 @@ Splitters are used to split documents into chunks before embedding them. We supp
 
 ### **Create a default Splitter "recursive\_character" with default parameters: {}**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 splitter = Splitter()
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ### **Create a Splitter with custom parameters**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 splitter = Splitter(
     name="recursive_character", 
     parameters={"chunk_size": 1500, "chunk_overlap": 40}
 )
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ## Adding Pipelines to a Collection
 
@@ -52,12 +92,20 @@ When adding a Pipeline to a collection it is required that Pipeline has a Model 
 
 The first time a Pipeline is added to a Collection it will automatically chunk and embed any documents already in that Collection.
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 model = Model()
 splitter = Splitter()
 pipeline = Pipeline("test_pipeline", model, splitter)
 await collection.add_pipeline(pipeline)
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ### Enabling full text search
 
@@ -65,6 +113,8 @@ Pipelines can take additional arguments enabling full text search. When full tex
 
 For more information on full text search please see: [Postgres Full Text Search](https://www.postgresql.org/docs/15/textsearch.html).
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 model = Model()
 splitter = Splitter()
@@ -76,47 +126,85 @@ pipeline = Pipeline("test_pipeline", model, splitter, {
 })
 await collection.add_pipeline(pipeline)
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 ## Searching with Pipelines
 
 Pipelines are a required argument when performing vector search. After a Pipeline has been added to a Collection, the Model and Splitter can be omitted when instantiating it.
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 results = await collection.query().vector_recall("Why is PostgresML the best?", pipeline).fetch_all()    
 ```
+{% endtab %}
 
-## Enabling, Disabling, and Removing Pipelines
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
+
+
 
 Pipelines can be disabled or removed to prevent them from running automatically when documents are upserted.
 
-### **Disable a Pipeline**
+## **Disable a Pipeline**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.disable_pipeline(pipeline)
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 Disabling a Pipeline prevents it from running automatically, but leaves all chunks and embeddings already created by that Pipeline in the database.
 
-### **Enable a Pipeline**
+## **Enable a Pipeline**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.enable_pipeline(pipeline)
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 Enabling a Pipeline will cause it to automatically run and chunk and embed all documents it may have missed while disabled.
 
-### **Remove a Pipeline**
+## **Remove a Pipeline**
 
+{% tabs %}
+{% tab title="First Tab" %}
 ```
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.remove_pipeline(pipeline)
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
 
 Removing a Pipeline deletes it and all associated data from the database. Removed Pipelines cannot be re-enabled but can be recreated.
