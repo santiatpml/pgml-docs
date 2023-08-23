@@ -9,22 +9,24 @@ Models are used for embedding chuncked documents. We support most every open sou
 ### **Create a default Model "intfloat/e5-small" with default parameters: {}**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 model = Model()
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+model = pgml.newModel()
+```
 {% endtab %}
 {% endtabs %}
 
 ### **Create a Model with custom parameters**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 model = Model(
     name="hkunlp/instructor-base",
     parameters={"instruction": "Represent the Wikipedia document for retrieval: "}    
@@ -32,22 +34,29 @@ model = Model(
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+model = pgml.newModel(
+    name="hkunlp/instructor-base",
+    parameters={instruction: "Represent the Wikipedia document for retrieval: "}    
+)
+```
 {% endtab %}
 {% endtabs %}
 
 ### **Use an OpenAI model**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 model = Model(name="text-embedding-ada-002", source="openai")
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+model = pgml.newModel(name="text-embedding-ada-002", source="openai")
+```
 {% endtab %}
 {% endtabs %}
 
@@ -58,22 +67,24 @@ Splitters are used to split documents into chunks before embedding them. We supp
 ### **Create a default Splitter "recursive\_character" with default parameters: {}**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 splitter = Splitter()
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+splitter = pgml.newSplitter()
+```
 {% endtab %}
 {% endtabs %}
 
 ### **Create a Splitter with custom parameters**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 splitter = Splitter(
     name="recursive_character", 
     parameters={"chunk_size": 1500, "chunk_overlap": 40}
@@ -81,8 +92,13 @@ splitter = Splitter(
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+splitter = pgml.newSplitter(
+    name="recursive_character", 
+    parameters={chunk_size: 1500, chunk_overlap: 40}
+)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -93,8 +109,8 @@ When adding a Pipeline to a collection it is required that Pipeline has a Model 
 The first time a Pipeline is added to a Collection it will automatically chunk and embed any documents already in that Collection.
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 model = Model()
 splitter = Splitter()
 pipeline = Pipeline("test_pipeline", model, splitter)
@@ -102,8 +118,13 @@ await collection.add_pipeline(pipeline)
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+model = pgml.newModel()
+splitter = pgml.newSplitter()
+pipeline = pgml.newPipeline("test_pipeline", model, splitter)
+await collection.add_pipeline(pipeline)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -114,8 +135,8 @@ Pipelines can take additional arguments enabling full text search. When full tex
 For more information on full text search please see: [Postgres Full Text Search](https://www.postgresql.org/docs/15/textsearch.html).
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 model = Model()
 splitter = Splitter()
 pipeline = Pipeline("test_pipeline", model, splitter, {
@@ -128,8 +149,18 @@ await collection.add_pipeline(pipeline)
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+model = pgml.newModel()
+splitter = pgml.newSplitter()
+pipeline = pgml.newPipeline("test_pipeline", model, splitter, {
+    "full_text_search": {
+        active: True,
+        configuration: "english"
+    }
+})
+await collection.add_pipeline(pipeline)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -138,16 +169,20 @@ await collection.add_pipeline(pipeline)
 Pipelines are a required argument when performing vector search. After a Pipeline has been added to a Collection, the Model and Splitter can be omitted when instantiating it.
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 results = await collection.query().vector_recall("Why is PostgresML the best?", pipeline).fetch_all()    
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+pipeline = pgml.newPipeline("test_pipeline")
+collection = pgml.newCollection("test_collection")
+results = await collection.query().vector_recall("Why is PostgresML the best?", pipeline).fetch_all()    
+```
 {% endtab %}
 {% endtabs %}
 
@@ -158,16 +193,20 @@ Pipelines can be disabled or removed to prevent them from running automatically 
 ## **Disable a Pipeline**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.disable_pipeline(pipeline)
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+pipeline = pgml.newPipeline("test_pipeline")
+collection = pgml.newCollection("test_collection")
+await collection.disable_pipeline(pipeline)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -176,16 +215,20 @@ Disabling a Pipeline prevents it from running automatically, but leaves all chun
 ## **Enable a Pipeline**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.enable_pipeline(pipeline)
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+pipeline = pgml.newPipeline("test_pipeline")
+collection = pgml.newCollection("test_collection")
+await collection.enable_pipeline(pipeline)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -194,16 +237,20 @@ Enabling a Pipeline will cause it to automatically run and chunk and embed all d
 ## **Remove a Pipeline**
 
 {% tabs %}
-{% tab title="First Tab" %}
-```
+{% tab title="Python" %}
+```python
 pipeline = Pipeline("test_pipeline")
 collection = Collection("test_collection")
 await collection.remove_pipeline(pipeline)
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-
+{% tab title="JavaScript" %}
+```javascript
+pipeline = pgml.newPipeline("test_pipeline")
+collection = pgml.newCollection("test_collection")
+await collection.remove_pipeline(pipeline)
+```
 {% endtab %}
 {% endtabs %}
 

@@ -6,7 +6,7 @@
 {% tab title="Python " %}
 Python > 3.8.1
 
-```
+```bash
 pip install pgml
 ```
 {% endtab %}

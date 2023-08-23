@@ -31,6 +31,7 @@
   * [Getting Started](sdks/getting-started.md)
   * [Collections](sdks/collections.md)
   * [Pipelines](sdks/pipelines.md)
+  * [Search](sdks/search.md)
 * [Use cases](use-cases/README.md)
   * [Chatbots](use-cases/chatbots.md)
   * [Recommendation Engine](use-cases/recommendation-engine.md)
