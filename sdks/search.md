@@ -258,3 +258,14 @@ results = await collection.query()
 {% endtabs %}
 
 The above query would first filter out all documents that do not match the full text search criteria, and then perform vector recall on the remaining documents.
+
+
+
+!!! generic
+
+
+
+!!!&#x20;
+
+
+
